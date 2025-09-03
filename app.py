@@ -3,6 +3,20 @@ import pandas as pd
 
 st.set_page_config(page_title="Annotasi Augmentasi Jawa & Sunda", layout="wide")
 
+# CSS untuk atur lebar sidebar
+st.markdown(
+    """
+    <style>
+        [data-testid="stSidebar"] {
+            min-width: 400px;
+            max-width: 400px;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
 st.title("Annotasi Kalimat Augmentasi")
 
 # Contoh data
@@ -19,32 +33,11 @@ data = {
 if "annotations" not in st.session_state:
     st.session_state.annotations = []
 
-# CSS untuk sticky header
-st.markdown("""
-    <style>
-    .sticky-header {
-        position: sticky;
-        top: 0;
-        background-color: white;
-        padding: 15px;
-        border: 2px solid #ddd;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        z-index: 999;
-    }
-    </style>
-""", unsafe_allow_html=True)
+# Sidebar untuk sticky kalimat asli
+st.sidebar.title("Kalimat Asli (Human)")
+st.sidebar.write(data["Kalimat Asli"])
 
-# Sticky Kalimat Asli di atas
-st.markdown(
-    f"""
-    <div class="sticky-header">
-        <h4>Kalimat Asli (Human)</h4>
-        <p>{data["Kalimat Asli"]}</p>
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+st.markdown("### Anotasi Kalimat Augmentasi")
 
 # Loop setiap kalimat augmentasi
 for i, kalimat in enumerate(data["Augmentasi"], start=1):
