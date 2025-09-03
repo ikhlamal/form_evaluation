@@ -51,14 +51,30 @@ for i, kalimat in enumerate(data["Augmentasi"], start=1):
         # Kotak teks untuk kalimat augmentasi
         st.markdown(f"<div class='augment-box'>{kalimat}</div>", unsafe_allow_html=True)
 
-        st.markdown("**Kesuaian Task (1 = Tidak sesuai sama sekali, 5 = Sangat sesuai)**")
-        kesesuaian = st.slider("Kesuaian Task", 1, 5, 1, key=f"task_{i}")
+        # Kesuaian Task
+        kesesuaian = st.slider(
+            "Kesuaian Task",
+            1, 5, 1,
+            key=f"task_{i}",
+            help="1 = Tidak sesuai sama sekali, 5 = Sangat sesuai"
+        )
+        
+        # Koheren
+        koheren = st.slider(
+            "Koheren",
+            1, 5, 1,
+            key=f"koheren_{i}",
+            help="1 = Tidak koheren, 5 = Sangat koheren"
+        )
+        
+        # Kohesi
+        kohesi = st.slider(
+            "Kohesi",
+            1, 5, 1,
+            key=f"kohesi_{i}",
+            help="1 = Tidak kohesif, 5 = Sangat kohesif"
+        )
 
-        st.markdown("**Koheren (1 = Tidak koheren, 5 = Sangat koheren)**")
-        koheren = st.slider("Koheren", 1, 5, 1, key=f"koheren_{i}")
-
-        st.markdown("**Kohesi (1 = Tidak kohesif, 5 = Sangat kohesif)**")
-        kohesi = st.slider("Kohesi", 1, 5, 1, key=f"kohesi_{i}")
 
         st.markdown("**Naturalness**")
         natural = st.radio(
