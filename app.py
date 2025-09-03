@@ -25,7 +25,7 @@ st.markdown(
 )
 
 # Load CSV
-df = pd.read_csv("data.csv")
+df = pd.read_csv("form_eval.csv")
 
 # Kelompokkan per kalimat asli
 grouped = df.groupby("Kalimat Asli")
