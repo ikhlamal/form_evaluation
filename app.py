@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 
-st.set_page_config(page_title="Annotasi Augmentasi Jawa & Sunda", layout="wide")
+st.set_page_config(page_title="Evaluasi Augmentasi Jawa & Sunda", layout="wide")
 
 # ==== CSS styling ====
 st.markdown(
@@ -52,7 +52,7 @@ subset = grouped.get_group(current_paket)
 contoh = subset.iloc[0]  # ambil 1 baris utk info sidebar
 
 # ==== SIDEBAR ====
-st.sidebar.title("Kalimat Asli (Human)")
+st.sidebar.title("Kalimat Asli")
 st.sidebar.markdown(f"<div class='augment-box'>{contoh['Kalimat Asli']}</div>", unsafe_allow_html=True)
 st.sidebar.markdown(f"**Task: {contoh['Instruksi']}**")
 if "Instruksi Lengkap" in contoh:
@@ -64,7 +64,7 @@ with col1:
     st.button("⬅️ Previous", on_click=prev_example, disabled=st.session_state.current_index == 0)
 with col2:
     st.markdown(
-        f"<div style='text-align:center; font-weight:bold;'>Contoh {st.session_state.current_index+1} dari {len(paket_list)}</div>",
+        f"<div style='text-align:center; font-weight:bold;'>Sampel {st.session_state.current_index+1} dari {len(paket_list)}</div>",
         unsafe_allow_html=True
     )
 with col3:
@@ -73,16 +73,14 @@ with col3:
 # ==== TAMPILKAN AUGMENTASI DALAM 1 PAKET ====
 for i, row in subset.iterrows():
     with st.container():
-        st.markdown("---")
         st.markdown(f"<div class='augment-box'>{row['Kalimat Augmentasi']}</div>", unsafe_allow_html=True)
 
         # Deskripsi skala dinamis sesuai instruksi
         task_descriptions = {
-            "Paraphrasing": ("Tidak parafrasa sama sekali", "Hasil parafrase sangat bagus"),
-            "Aggressive Transformation": ("Tidak ada perubahan konteks/topik", "Transformasi agresif sangat bagus"),
-            "Back Translation": ("Bukan hasil terjemahan balik", "Hasil terjemahan balik sangat bagus"),
-            "Synonym Replacement": ("Tidak ada sinonim diganti", "Penggantian sinonim sangat bagus"),
-            "Noise Injection": ("Tidak ada noise sama sekali", "Penyisipan noise sangat bagus"),
+            "Paraphrasing": ("Hasil parafrase sangat buruk", "Hasil parafrase sangat bagus"),
+            "Aggressive Transformation": ("Perubahan konteks/topik sangat buruk", "Perubahan konteks/topik sangat bagus"),
+            "Sentiment Based": ("Perubahan emosi sangat buruk", "Perubahan emosi sangat bagus"),
+            "Perturbation and Noise Injection": ("Perturbasi dan penyisipan noise sangat buruk", "Perturbasi dan penyisipan noise sangat bagus"),
         }
         low_desc, high_desc = task_descriptions.get(row["Instruksi"], ("Tidak sesuai", "Sangat bagus"))
 
@@ -99,7 +97,7 @@ for i, row in subset.iterrows():
             1, 5, 1, key=f"kohesi_{st.session_state.current_index}_{i}"
         )
         natural = st.radio(
-            "Text Naturalness",
+            "Naturalness",
             [
                 "Teks terdengar natural",
                 "Teks terdengar janggal tapi masih bisa dipahami",
@@ -124,6 +122,7 @@ for i, row in subset.iterrows():
                 "Natural": natural
             })
             st.success("✅ Anotasi berhasil disimpan!")
+        st.markdown("---")
 
 # ==== TAMPILKAN HASIL ANOTASI ====
 if st.session_state.annotations:
