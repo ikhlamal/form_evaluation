@@ -3,7 +3,7 @@ import pandas as pd
 
 st.set_page_config(page_title="Annotasi Augmentasi Jawa & Sunda", layout="wide")
 
-# Atur lebar sidebar
+# CSS untuk styling
 st.markdown(
     """
     <style>
@@ -17,11 +17,13 @@ st.markdown(
             border-radius: 8px;
             background-color: #f9f9f9;
             margin-bottom: 10px;
+            color: #000000; /* teks jadi hitam */
         }
     </style>
     """,
     unsafe_allow_html=True
 )
+
 
 # Contoh data
 data = {
