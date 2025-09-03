@@ -3,7 +3,7 @@ import pandas as pd
 
 st.set_page_config(page_title="Annotasi Augmentasi Jawa & Sunda", layout="wide")
 
-# CSS styling
+# ==== CSS styling ====
 st.markdown(
     """
     <style>
@@ -27,9 +27,9 @@ st.markdown(
 # ==== LOAD CSV ====
 df = pd.read_csv("data.csv")
 
-# Kelompokkan data per "Kalimat Asli"
-grouped = df.groupby("Kalimat Asli")
-kalimat_list = list(grouped.groups.keys())
+# ==== GROUP DATA: per (Kalimat Asli + Instruksi) ====
+grouped = df.groupby(["Kalimat Asli", "Instruksi"])
+paket_list = list(grouped.groups.keys())
 
 # ==== SESSION STATE ====
 if "annotations" not in st.session_state:
@@ -43,13 +43,13 @@ def prev_example():
         st.session_state.current_index -= 1
 
 def next_example():
-    if st.session_state.current_index < len(kalimat_list) - 1:
+    if st.session_state.current_index < len(paket_list) - 1:
         st.session_state.current_index += 1
 
 # ==== AMBIL DATA SEKARANG ====
-current_asli = kalimat_list[st.session_state.current_index]
-subset = grouped.get_group(current_asli)
-contoh = subset.iloc[0]  # ambil 1 baris untuk info sidebar
+current_paket = paket_list[st.session_state.current_index]
+subset = grouped.get_group(current_paket)
+contoh = subset.iloc[0]  # ambil 1 baris utk info sidebar
 
 # ==== SIDEBAR ====
 st.sidebar.title("Kalimat Asli (Human)")
@@ -63,17 +63,20 @@ col1, col2, col3 = st.columns([1, 3, 1])
 with col1:
     st.button("⬅️ Previous", on_click=prev_example, disabled=st.session_state.current_index == 0)
 with col2:
-    st.markdown(f"<div style='text-align:center; font-weight:bold;'>Contoh {st.session_state.current_index+1} dari {len(kalimat_list)}</div>", unsafe_allow_html=True)
+    st.markdown(
+        f"<div style='text-align:center; font-weight:bold;'>Contoh {st.session_state.current_index+1} dari {len(paket_list)}</div>",
+        unsafe_allow_html=True
+    )
 with col3:
-    st.button("Next ➡️", on_click=next_example, disabled=st.session_state.current_index == len(kalimat_list)-1)
+    st.button("Next ➡️", on_click=next_example, disabled=st.session_state.current_index == len(paket_list)-1)
 
-# ==== TAMPILKAN AUGMENTASI ====
+# ==== TAMPILKAN AUGMENTASI DALAM 1 PAKET ====
 for i, row in subset.iterrows():
     with st.container():
         st.markdown("---")
         st.markdown(f"<div class='augment-box'>{row['Kalimat Augmentasi']}</div>", unsafe_allow_html=True)
 
-        # Deskripsi skala dinamis
+        # Deskripsi skala dinamis sesuai instruksi
         task_descriptions = {
             "Paraphrasing": ("Tidak parafrasa sama sekali", "Hasil parafrase sangat bagus"),
             "Aggressive Transformation": ("Tidak ada perubahan konteks/topik", "Transformasi agresif sangat bagus"),
