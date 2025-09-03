@@ -3,7 +3,7 @@ import pandas as pd
 
 st.set_page_config(page_title="Annotasi Augmentasi Jawa & Sunda", layout="wide")
 
-# CSS untuk styling
+# CSS styling
 st.markdown(
     """
     <style>
@@ -17,60 +17,60 @@ st.markdown(
             border-radius: 8px;
             background-color: #f9f9f9;
             margin-bottom: 10px;
-            color: #000000; /* teks jadi hitam */
+            color: #000000;
         }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-
 # Contoh data
 data = {
-    "Kalimat Asli": "USER Menyetabilkan harga beras aja gak becus kok jadi penguasa cok jancok.munduro cok kamu jadi presiden dasar gak punya malu raimu cok",
+    "Kalimat Asli": "USER Menyetabilkan harga beras aja gak becus kok jadi penguasa cok jancok. Munduro cok kamu jadi presiden dasar gak punya malu raimu cok",
     "Augmentasi": [
         "Ngatur harga beras wae ora iso, kok isih ngaku penguasa, cok jancok. Ojo sok presiden, munduro saiki, dasar ra nduwe isin, raimu cok.",
         "Ngatur harga beras wae ora iso kok malah dadi pemimpin cok jancok, mundur wae cok dadi presiden ora nduwe isin raimu cok",
         "Ngurusi rego beras wae ora iso, kok malah dadi penguasa cok. Minggato cok, dhasar rai gedek, dadi presiden ora isin."
-    ]
+    ],
+    "Task": "Paraphrasing"
 }
 
 # Tempat simpan hasil anotasi
 if "annotations" not in st.session_state:
     st.session_state.annotations = []
 
-# Sidebar untuk sticky kalimat asli
+# Sidebar
 st.sidebar.title("Kalimat Asli (Human)")
-st.sidebar.write(data["Kalimat Asli"])
+st.sidebar.markdown(f"<div class='augment-box'>{data['Kalimat Asli']}</div>", unsafe_allow_html=True)
+st.sidebar.markdown(f"**Task: {data['Task']}**")
+st.sidebar.write("Kalimat-kalimat berikut ini dihasilkan menggunakan teknik parafrase.")
 
 # Loop setiap kalimat augmentasi
 for i, kalimat in enumerate(data["Augmentasi"], start=1):
     with st.container():
+        st.markdown("---")  # Border pemisah antar contoh
+
         # Kotak teks untuk kalimat augmentasi
         st.markdown(f"<div class='augment-box'>{kalimat}</div>", unsafe_allow_html=True)
 
-        # Kesesuaian dengan Instruksi
         kesesuaian = st.slider(
             "Kesesuaian dengan Instruksi (1 = Tidak sesuai sama sekali, 5 = Sangat sesuai)",
             1, 5, 1,
             key=f"task_{i}"
         )
-        
-        # Koherensi
+
         koheren = st.slider(
             "Koherensi (1 = Tidak koheren, 5 = Sangat koheren)",
             1, 5, 1,
             key=f"koheren_{i}"
         )
-        
-        # Kohesi
+
         kohesi = st.slider(
             "Kohesi (1 = Tidak kohesif, 5 = Sangat kohesif)",
             1, 5, 1,
             key=f"kohesi_{i}"
         )
-        
-        # Text Naturalness
+
         natural = st.radio(
             "Text Naturalness",
             [
@@ -83,19 +83,17 @@ for i, kalimat in enumerate(data["Augmentasi"], start=1):
             horizontal=True
         )
 
-
         if st.button("Simpan Anotasi", key=f"save_{i}"):
             st.session_state.annotations.append({
                 "Kalimat Asli": data["Kalimat Asli"],
                 "Kalimat Augmentasi": kalimat,
-                "Kesuaian Task": kesesuaian,
-                "Koheren": koheren,
+                "Kesuaian Instruksi": kesesuaian,
+                "Koherensi": koheren,
                 "Kohesi": kohesi,
-                "Naturalness": natural
+                "Text Naturalness": natural,
+                "Task": data["Task"]
             })
             st.success("Anotasi berhasil disimpan!")
-
-        st.markdown("---")  # Border pemisah antar contoh
 
 # Tampilkan hasil anotasi sementara
 if st.session_state.annotations:
