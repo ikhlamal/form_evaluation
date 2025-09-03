@@ -54,11 +54,11 @@ col1, col2, col3 = st.columns([1, 3, 1])
 with col1:
     if st.button("⬅️ Previous", disabled=st.session_state.current_index == 0):
         st.session_state.current_index -= 1
-        st.experimental_rerun()
+        st.rerun()
 with col3:
     if st.button("Next ➡️", disabled=st.session_state.current_index == len(kalimat_list) - 1):
         st.session_state.current_index += 1
-        st.experimental_rerun()
+        st.rerun()
 
 # Loop setiap augmentasi
 for i, row in subset.iterrows():
