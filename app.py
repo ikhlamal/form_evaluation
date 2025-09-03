@@ -38,7 +38,7 @@ contoh = df.iloc[0]
 st.sidebar.title("Kalimat Asli (Human)")
 st.sidebar.markdown(f"<div class='augment-box'>{contoh['Kalimat Asli']}</div>", unsafe_allow_html=True)
 st.sidebar.markdown(f"**Task: {contoh['Instruksi']}**")
-st.sidebar.write(f"Kalimat-kalimat berikut ini dihasilkan menggunakan teknik {contoh['Instruksi'].lower()}.")
+st.sidebar.write(contoh["Instruksi Lengkap"])
 
 # Filter semua augmentasi yg sama-sama dari kalimat asli itu
 augmentasi_list = df[df["Kalimat Asli"] == contoh["Kalimat Asli"]]
