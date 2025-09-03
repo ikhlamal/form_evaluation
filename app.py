@@ -51,38 +51,39 @@ for i, kalimat in enumerate(data["Augmentasi"], start=1):
         # Kotak teks untuk kalimat augmentasi
         st.markdown(f"<div class='augment-box'>{kalimat}</div>", unsafe_allow_html=True)
 
-        # Kesuaian Task
+        # Kesesuaian dengan Instruksi
         kesesuaian = st.slider(
-            "Kesuaian Task",
+            "Kesesuaian dengan Instruksi (1 = Tidak sesuai sama sekali, 5 = Sangat sesuai)",
             1, 5, 1,
-            key=f"task_{i}",
-            help="1 = Tidak sesuai sama sekali, 5 = Sangat sesuai"
+            key=f"task_{i}"
         )
         
-        # Koheren
+        # Koherensi
         koheren = st.slider(
-            "Koheren",
+            "Koherensi (1 = Tidak koheren, 5 = Sangat koheren)",
             1, 5, 1,
-            key=f"koheren_{i}",
-            help="1 = Tidak koheren, 5 = Sangat koheren"
+            key=f"koheren_{i}"
         )
         
         # Kohesi
         kohesi = st.slider(
-            "Kohesi",
+            "Kohesi (1 = Tidak kohesif, 5 = Sangat kohesif)",
             1, 5, 1,
-            key=f"kohesi_{i}",
-            help="1 = Tidak kohesif, 5 = Sangat kohesif"
+            key=f"kohesi_{i}"
         )
-
-
-        st.markdown("**Naturalness**")
+        
+        # Text Naturalness
         natural = st.radio(
-            "Naturalness",
-            ["The text sounds natural", "The text sounds awkward but understandable", "The text is not understandable"],
+            "Text Naturalness",
+            [
+                "Teks terdengar natural",
+                "Teks terdengar janggal tapi masih bisa dipahami",
+                "Teks tidak bisa dipahami"
+            ],
             index=1,
             key=f"natural_{i}"
         )
+
 
         if st.button("Simpan Anotasi", key=f"save_{i}"):
             st.session_state.annotations.append({
