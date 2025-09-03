@@ -46,8 +46,6 @@ st.sidebar.write(data["Kalimat Asli"])
 # Loop setiap kalimat augmentasi
 for i, kalimat in enumerate(data["Augmentasi"], start=1):
     with st.container():
-        st.markdown("---")  # Border pemisah antar contoh
-
         # Kotak teks untuk kalimat augmentasi
         st.markdown(f"<div class='augment-box'>{kalimat}</div>", unsafe_allow_html=True)
 
@@ -81,7 +79,8 @@ for i, kalimat in enumerate(data["Augmentasi"], start=1):
                 "Teks tidak bisa dipahami"
             ],
             index=1,
-            key=f"natural_{i}"
+            key=f"natural_{i}",
+            horizontal=True
         )
 
 
@@ -95,6 +94,8 @@ for i, kalimat in enumerate(data["Augmentasi"], start=1):
                 "Naturalness": natural
             })
             st.success("Anotasi berhasil disimpan!")
+
+        st.markdown("---")  # Border pemisah antar contoh
 
 # Tampilkan hasil anotasi sementara
 if st.session_state.annotations:
