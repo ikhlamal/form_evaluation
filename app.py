@@ -11,12 +11,17 @@ st.markdown(
             min-width: 400px;
             max-width: 400px;
         }
+        .augment-box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            margin-bottom: 10px;
+        }
     </style>
     """,
     unsafe_allow_html=True
 )
-
-st.title("Annotasi Kalimat Augmentasi")
 
 # Contoh data
 data = {
@@ -39,10 +44,10 @@ st.sidebar.write(data["Kalimat Asli"])
 # Loop setiap kalimat augmentasi
 for i, kalimat in enumerate(data["Augmentasi"], start=1):
     with st.container():
-        st.markdown("---")  # Border pemisah
+        st.markdown("---")  # Border pemisah antar contoh
 
-        # Tampilkan kalimat augmentasi langsung, tanpa label "Kalimat Augmentasi X"
-        st.write(f"**Kalimat Augmentasi:** {kalimat}")
+        # Kotak teks untuk kalimat augmentasi
+        st.markdown(f"<div class='augment-box'>{kalimat}</div>", unsafe_allow_html=True)
 
         st.markdown("**Kesuaian Task (1 = Tidak sesuai sama sekali, 5 = Sangat sesuai)**")
         kesesuaian = st.slider("Kesuaian Task", 1, 5, 1, key=f"task_{i}")
@@ -61,7 +66,7 @@ for i, kalimat in enumerate(data["Augmentasi"], start=1):
             key=f"natural_{i}"
         )
 
-        if st.button(f"Simpan Anotasi", key=f"save_{i}"):
+        if st.button("Simpan Anotasi", key=f"save_{i}"):
             st.session_state.annotations.append({
                 "Kalimat Asli": data["Kalimat Asli"],
                 "Kalimat Augmentasi": kalimat,
