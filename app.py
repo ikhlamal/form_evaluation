@@ -3,7 +3,7 @@ import pandas as pd
 
 st.set_page_config(page_title="Annotasi Augmentasi Jawa & Sunda", layout="wide")
 
-# CSS styling
+# CSS
 st.markdown(
     """
     <style>
@@ -25,68 +25,75 @@ st.markdown(
 )
 
 # Load CSV
-df = pd.read_csv("form_eval.csv")
+df = pd.read_csv("data.csv")
 
-# Tempat simpan anotasi
+# Kelompokkan per kalimat asli
+grouped = df.groupby("Kalimat Asli")
+
+# Init session state
 if "annotations" not in st.session_state:
     st.session_state.annotations = []
+if "current_index" not in st.session_state:
+    st.session_state.current_index = 0
 
-# Ambil contoh pertama (nanti bisa diganti loop per contoh)
-contoh = df.iloc[0]
+# Ambil kalimat asli aktif
+kalimat_list = list(grouped.groups.keys())
+current_asli = kalimat_list[st.session_state.current_index]
+subset = grouped.get_group(current_asli)
 
-# Sidebar: tampilkan kalimat asli + task
+# Sidebar
+contoh = subset.iloc[0]  # ambil salah satu baris utk meta info
 st.sidebar.title("Kalimat Asli (Human)")
 st.sidebar.markdown(f"<div class='augment-box'>{contoh['Kalimat Asli']}</div>", unsafe_allow_html=True)
 st.sidebar.markdown(f"**Task: {contoh['Instruksi']}**")
-st.sidebar.write(contoh["Instruksi Lengkap"])
+if "Instruksi Lengkap" in contoh:
+    st.sidebar.write(contoh["Instruksi Lengkap"])
 
-# Filter semua augmentasi yg sama-sama dari kalimat asli itu
-augmentasi_list = df[df["Kalimat Asli"] == contoh["Kalimat Asli"]]
+# Navigasi
+col1, col2, col3 = st.columns([1, 3, 1])
+with col1:
+    if st.button("⬅️ Previous", disabled=st.session_state.current_index == 0):
+        st.session_state.current_index -= 1
+        st.experimental_rerun()
+with col3:
+    if st.button("Next ➡️", disabled=st.session_state.current_index == len(kalimat_list) - 1):
+        st.session_state.current_index += 1
+        st.experimental_rerun()
 
-for i, row in augmentasi_list.iterrows():
+# Loop setiap augmentasi
+for i, row in subset.iterrows():
     with st.container():
         st.markdown("---")
-
-        # Kotak kalimat augmentasi
         st.markdown(f"<div class='augment-box'>{row['Kalimat Augmentasi']}</div>", unsafe_allow_html=True)
 
-        # Slider dinamis (pakai mapping sesuai instruksi)
+        # Deskripsi skala sesuai instruksi
         task_descriptions = {
             "Paraphrasing": ("Tidak parafrasa sama sekali", "Hasil parafrase sangat bagus"),
+            "Aggressive Transformation": ("Tidak ada perubahan konteks/topik", "Transformasi agresif sangat bagus"),
             "Back Translation": ("Bukan hasil terjemahan balik", "Hasil terjemahan balik sangat bagus"),
             "Synonym Replacement": ("Tidak ada sinonim diganti", "Penggantian sinonim sangat bagus"),
             "Noise Injection": ("Tidak ada noise sama sekali", "Penyisipan noise sangat bagus"),
         }
         low_desc, high_desc = task_descriptions.get(row["Instruksi"], ("Tidak sesuai", "Sangat bagus"))
 
-        kesesuaian = st.slider(
+        sesuai = st.slider(
             f"Kesesuaian dengan Instruksi (1 = {low_desc}, 5 = {high_desc})",
-            1, 5, 1,
-            key=f"task_{i}"
+            1, 5, 1, key=f"task_{i}"
         )
-
         koheren = st.slider(
             "Koherensi (1 = Tidak koheren, 5 = Sangat koheren)",
-            1, 5, 1,
-            key=f"koheren_{i}"
+            1, 5, 1, key=f"koheren_{i}"
         )
-
         kohesi = st.slider(
             "Kohesi (1 = Tidak kohesif, 5 = Sangat kohesif)",
-            1, 5, 1,
-            key=f"kohesi_{i}"
+            1, 5, 1, key=f"kohesi_{i}"
         )
-
         natural = st.radio(
             "Text Naturalness",
-            [
-                "Teks terdengar natural",
-                "Teks terdengar janggal tapi masih bisa dipahami",
-                "Teks tidak bisa dipahami"
-            ],
-            index=1,
-            key=f"natural_{i}",
-            horizontal=True
+            ["Teks terdengar natural",
+             "Teks terdengar janggal tapi masih bisa dipahami",
+             "Teks tidak bisa dipahami"],
+            index=1, key=f"natural_{i}", horizontal=True
         )
 
         if st.button("Simpan Anotasi", key=f"save_{i}"):
@@ -95,15 +102,16 @@ for i, row in augmentasi_list.iterrows():
                 "Kalimat Augmentasi": row["Kalimat Augmentasi"],
                 "Model": row["Model"],
                 "Instruksi": row["Instruksi"],
+                "Instruksi Lengkap": row["Instruksi Lengkap"],
                 "Bahasa": row["Bahasa"],
-                "Sesuai Instruksi": kesesuaian,
+                "Sesuai Instruksi": sesuai,
                 "Koheren": koheren,
                 "Kohesi": kohesi,
                 "Natural": natural
             })
             st.success("Anotasi berhasil disimpan!")
 
-# Tampilkan hasil anotasi sementara
+# Hasil sementara
 if st.session_state.annotations:
     st.markdown("### Hasil Anotasi Sementara")
     hasil = pd.DataFrame(st.session_state.annotations)
