@@ -1,0 +1,43 @@
+Kalimat Augmentasi,Kalimat Asli,Model,Instruksi,Instruksi Lengkap,Sesuai Instruksi,Koheren,Kohesi,Natural,Bahasa,Label
+"Ngatur harga beras wae ora iso, kok isih ngaku penguasa, cok jancok. Ojo sok presiden, munduro saiki, dasar ra nduwe isin, raimu cok.",USER Menyetabilkan harga beras aja gak becus kok jadi penguasa cok jancok.munduro cok kamu jadi presiden dasar gak punya malu raimu cok,GPT,Paraphrasing,Kalimat-kalimat berikut ini dihasilkan menggunakan teknik parafrase dari kalimat asli.,,,,,Jawa,Hate
+"Ngatur harga beras wae ora iso kok malah dadi pemimpin cok jancok, mundur wae cok dadi presiden ora nduwe isin raimu cok",USER Menyetabilkan harga beras aja gak becus kok jadi penguasa cok jancok.munduro cok kamu jadi presiden dasar gak punya malu raimu cok,Claude,Paraphrasing,Kalimat-kalimat berikut ini dihasilkan menggunakan teknik parafrase.,,,,,Jawa,Hate
+"USER Ngurusi rego beras wae ora iso, kok malah dadi penguasa cok. Minggato cok, dhasar rai gedek, dadi presiden ora isin.",USER Menyetabilkan harga beras aja gak becus kok jadi penguasa cok jancok.munduro cok kamu jadi presiden dasar gak punya malu raimu cok,Gemini,Paraphrasing,Kalimat-kalimat berikut ini dihasilkan menggunakan teknik parafrase.,,,,,Jawa,Hate
+"Ngurus jadwal kereta wae gak becus, kok ngaku pemimpin kota, cok jancok; munduro wae, raimu ora nduwe isin, cok.",USER Menyetabilkan harga beras aja gak becus kok jadi penguasa cok jancok.munduro cok kamu jadi presiden dasar gak punya malu raimu cok,GPT,Aggressive Transformation,"Kalimat-kalimat berikut ini dihasilkan dengan mengubah topik dan konteks pembicaraan dari kalimat asli secara signifikan, tetapi tetap mempertahankan tingkat kekasaran (jika termasuk hate speech) atau kehalusan (jika bukan hate speech)",,,,,Jawa,Hate
+"Ngatur traffic macet wae ora iso kok dadi walikota cok jancok, turun wae cok saking jabatanmu dasar gak nduwe wirang raimu cok",USER Menyetabilkan harga beras aja gak becus kok jadi penguasa cok jancok.munduro cok kamu jadi presiden dasar gak punya malu raimu cok,Claude,Aggressive Transformation,"Kalimat-kalimat berikut ini dihasilkan dengan mengubah topik dan konteks pembicaraan dari kalimat asli secara signifikan, tetapi tetap mempertahankan tingkat kekasaran (jika termasuk hate speech) atau kehalusan (jika bukan hate speech)",,,,,Jawa,Hate
+Main game aja gak becus kok sok jago cok jancok. Pensiun wae cok kamu jadi pro player dasar gak punya skill raimu cok.,USER Menyetabilkan harga beras aja gak becus kok jadi penguasa cok jancok.munduro cok kamu jadi presiden dasar gak punya malu raimu cok,Gemini,Aggressive Transformation,"Kalimat-kalimat berikut ini dihasilkan dengan mengubah topik dan konteks pembicaraan dari kalimat asli secara signifikan, tetapi tetap mempertahankan tingkat kekasaran (jika termasuk hate speech) atau kehalusan (jika bukan hate speech)",,,,,Jawa,Hate
+"Stabilin harga beras wae ora iso, kok sok jago dadi penguasa? Cok, jancok! Wis munduro wae soko kursi presiden, raimu ora nduwe isin, cok.",USER Menyetabilkan harga beras aja gak becus kok jadi penguasa cok jancok.munduro cok kamu jadi presiden dasar gak punya malu raimu cok,GPT,Sentiment Based,"Kalimat-kalimat berikut ini dihasilkan dengan cara mengubah nada emosi atau sentimen dari kalimat asli.
+Jika label adalah hate speech, maka:
+  - Meningkatkan intensitas ujaran kebencian (misalnya, menjadi lebih kasar atau eksplisit, tetapi tetap realistis dan sesuai konteks media sosial).
+  - Atau mengubah emosi dominan (misalnya, dari sindiran ke kemarahan langsung), tanpa mengubah tujuan ujaran kebenciannya.
+  - Sebaliknya jika kalimat menggunakan ujaran kebencian yang eksplisit, bisa mengubahnya menjadi lebih implisit/subtle.
+
+Jika label adalah bukan hate speech, maka:
+  - Mengubah nada emosi menjadi lebih netral, sopan, atau bahkan lebih positif.
+  - Atau memvariasikan gaya bicara yang tetap tidak mengandung kebencian, meskipun dengan perubahan emosi atau diksi.",,,,,Jawa,Hate
+"Menyetabilkan harga beras wae ora iso, piye arep mimpin negara cok! Mundur wae lah, gak pantes jadi presiden, ndasmu ora ana isine cok!",USER Menyetabilkan harga beras aja gak becus kok jadi penguasa cok jancok.munduro cok kamu jadi presiden dasar gak punya malu raimu cok,Claude,Sentiment Based,"Kalimat-kalimat berikut ini dihasilkan dengan cara mengubah nada emosi atau sentimen dari kalimat asli.
+Jika label adalah hate speech, maka:
+  - Meningkatkan intensitas ujaran kebencian (misalnya, menjadi lebih kasar atau eksplisit, tetapi tetap realistis dan sesuai konteks media sosial).
+  - Atau mengubah emosi dominan (misalnya, dari sindiran ke kemarahan langsung), tanpa mengubah tujuan ujaran kebenciannya.
+  - Sebaliknya jika kalimat menggunakan ujaran kebencian yang eksplisit, bisa mengubahnya menjadi lebih implisit/subtle.
+
+Jika label adalah bukan hate speech, maka:
+  - Mengubah nada emosi menjadi lebih netral, sopan, atau bahkan lebih positif.
+  - Atau memvariasikan gaya bicara yang tetap tidak mengandung kebencian, meskipun dengan perubahan emosi atau diksi.",,,,,Jawa,Hate
+"USER Harga beras amburadul kok isih wani ngaku dadi pemimpin? Jancok asu tenan. Minggato kono, ora duwe isin babar blas raimu goblok.",USER Menyetabilkan harga beras aja gak becus kok jadi penguasa cok jancok.munduro cok kamu jadi presiden dasar gak punya malu raimu cok,Gemini,Sentiment Based,"Kalimat-kalimat berikut ini dihasilkan dengan cara mengubah nada emosi atau sentimen dari kalimat asli.
+Jika label adalah hate speech, maka:
+  - Meningkatkan intensitas ujaran kebencian (misalnya, menjadi lebih kasar atau eksplisit, tetapi tetap realistis dan sesuai konteks media sosial).
+  - Atau mengubah emosi dominan (misalnya, dari sindiran ke kemarahan langsung), tanpa mengubah tujuan ujaran kebenciannya.
+  - Sebaliknya jika kalimat menggunakan ujaran kebencian yang eksplisit, bisa mengubahnya menjadi lebih implisit/subtle.
+
+Jika label adalah bukan hate speech, maka:
+  - Mengubah nada emosi menjadi lebih netral, sopan, atau bahkan lebih positif.
+  - Atau memvariasikan gaya bicara yang tetap tidak mengandung kebencian, meskipun dengan perubahan emosi atau diksi.",,,,,Jawa,Hate
+"USER Menstabilin harga beras aja gk iso, becus ta piye kok malah jadi penguasa, cok jancok. Mundur wae, cok, km jd presiden ra nduwe isin, raimu cok",USER Menyetabilkan harga beras aja gak becus kok jadi penguasa cok jancok.munduro cok kamu jadi presiden dasar gak punya malu raimu cok,GPT,Perturbation and Noise Injection,"Kalimat-kalimat berikut ini dihasilkan dengan dengan dua teknik sekaligus:
+1. Perturbasi Code-Mixing: Ubah proporsi penggunaan bahasa Indonesia dan Jawa dalam kalimat, baik dengan menambahkan kata/ungkapan dalam bahasa daerah atau menggantinya sebagian dengan padanan bahasa Indonesia, tanpa mengubah arti atau konteks ujaran.
+2. Noise Injection: Tambahkan variasi ejaan informal atau slang khas media sosial Indonesia (contoh: “banget” → “bgt”, “anjir” → “anjr”, “goblok” → “gblk”, dll), untuk meniru cara pengguna menulis di Twitter.",,,,,Jawa,Hate
+Nyetabilno rego gabah ae gk becus kok dadi penguasa njir jancuk.mundur ae cok kowe dadi presiden dsr gk duwe isin raimu cok,USER Menyetabilkan harga beras aja gak becus kok jadi penguasa cok jancok.munduro cok kamu jadi presiden dasar gak punya malu raimu cok,Claude,Perturbation and Noise Injection,"Kalimat-kalimat berikut ini dihasilkan dengan dengan dua teknik sekaligus:
+1. Perturbasi Code-Mixing: Ubah proporsi penggunaan bahasa Indonesia dan Jawa dalam kalimat, baik dengan menambahkan kata/ungkapan dalam bahasa daerah atau menggantinya sebagian dengan padanan bahasa Indonesia, tanpa mengubah arti atau konteks ujaran.
+2. Noise Injection: Tambahkan variasi ejaan informal atau slang khas media sosial Indonesia (contoh: “banget” → “bgt”, “anjir” → “anjr”, “goblok” → “gblk”, dll), untuk meniru cara pengguna menulis di Twitter.",,,,,Jawa,Hate
+USER Nyetabilin rego beras wae gk becus kok dadi penguasa cok jancok. munduro cok kowe dadi presiden dasar gk nduwe isin raimu cok.,USER Menyetabilkan harga beras aja gak becus kok jadi penguasa cok jancok.munduro cok kamu jadi presiden dasar gak punya malu raimu cok,Gemini,Perturbation and Noise Injection,"Kalimat-kalimat berikut ini dihasilkan dengan dengan dua teknik sekaligus:
+1. Perturbasi Code-Mixing: Ubah proporsi penggunaan bahasa Indonesia dan Jawa dalam kalimat, baik dengan menambahkan kata/ungkapan dalam bahasa daerah atau menggantinya sebagian dengan padanan bahasa Indonesia, tanpa mengubah arti atau konteks ujaran.
+2. Noise Injection: Tambahkan variasi ejaan informal atau slang khas media sosial Indonesia (contoh: “banget” → “bgt”, “anjir” → “anjr”, “goblok” → “gblk”, dll), untuk meniru cara pengguna menulis di Twitter.",,,,,Jawa,Hate
