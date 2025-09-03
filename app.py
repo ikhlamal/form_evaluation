@@ -3,7 +3,7 @@ import pandas as pd
 
 st.set_page_config(page_title="Annotasi Augmentasi Jawa & Sunda", layout="wide")
 
-# CSS untuk atur lebar sidebar
+# Atur lebar sidebar
 st.markdown(
     """
     <style>
@@ -15,7 +15,6 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
 
 st.title("Annotasi Kalimat Augmentasi")
 
@@ -37,34 +36,32 @@ if "annotations" not in st.session_state:
 st.sidebar.title("Kalimat Asli (Human)")
 st.sidebar.write(data["Kalimat Asli"])
 
-st.markdown("### Anotasi Kalimat Augmentasi")
-
 # Loop setiap kalimat augmentasi
 for i, kalimat in enumerate(data["Augmentasi"], start=1):
     with st.container():
         st.markdown("---")  # Border pemisah
 
-        st.markdown(f"#### Kalimat Augmentasi {i}")
-        st.write(kalimat)
+        # Tampilkan kalimat augmentasi langsung, tanpa label "Kalimat Augmentasi X"
+        st.write(f"**Kalimat Augmentasi:** {kalimat}")
 
         st.markdown("**Kesuaian Task (1 = Tidak sesuai sama sekali, 5 = Sangat sesuai)**")
-        kesesuaian = st.slider(f"Kesuaian Task - Kalimat {i}", 1, 5, 1, key=f"task_{i}")
+        kesesuaian = st.slider("Kesuaian Task", 1, 5, 1, key=f"task_{i}")
 
         st.markdown("**Koheren (1 = Tidak koheren, 5 = Sangat koheren)**")
-        koheren = st.slider(f"Koheren - Kalimat {i}", 1, 5, 1, key=f"koheren_{i}")
+        koheren = st.slider("Koheren", 1, 5, 1, key=f"koheren_{i}")
 
         st.markdown("**Kohesi (1 = Tidak kohesif, 5 = Sangat kohesif)**")
-        kohesi = st.slider(f"Kohesi - Kalimat {i}", 1, 5, 1, key=f"kohesi_{i}")
+        kohesi = st.slider("Kohesi", 1, 5, 1, key=f"kohesi_{i}")
 
         st.markdown("**Naturalness**")
         natural = st.radio(
-            f"Naturalness - Kalimat {i}",
+            "Naturalness",
             ["The text sounds natural", "The text sounds awkward but understandable", "The text is not understandable"],
             index=1,
             key=f"natural_{i}"
         )
 
-        if st.button(f"Simpan Anotasi Kalimat {i}", key=f"save_{i}"):
+        if st.button(f"Simpan Anotasi", key=f"save_{i}"):
             st.session_state.annotations.append({
                 "Kalimat Asli": data["Kalimat Asli"],
                 "Kalimat Augmentasi": kalimat,
@@ -73,7 +70,7 @@ for i, kalimat in enumerate(data["Augmentasi"], start=1):
                 "Kohesi": kohesi,
                 "Naturalness": natural
             })
-            st.success(f"Anotasi untuk Kalimat {i} berhasil disimpan!")
+            st.success("Anotasi berhasil disimpan!")
 
 # Tampilkan hasil anotasi sementara
 if st.session_state.annotations:
