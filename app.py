@@ -54,7 +54,7 @@ for i, kalimat in enumerate(data["Augmentasi"], start=1):
         st.markdown(f"<div class='augment-box'>{kalimat}</div>", unsafe_allow_html=True)
 
         kesesuaian = st.slider(
-            "Kesesuaian dengan Instruksi (1 = Tidak sesuai sama sekali, 5 = Sangat sesuai)",
+            "Kesesuaian dengan Instruksi (1 = Tidak parafrase sama sekali, 5 = Hasil parafrase sangat bagus)",
             1, 5, 1,
             key=f"task_{i}"
         )
