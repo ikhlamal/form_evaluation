@@ -24,37 +24,43 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Contoh data
-data = {
-    "Kalimat Asli": "USER Menyetabilkan harga beras aja gak becus kok jadi penguasa cok jancok. Munduro cok kamu jadi presiden dasar gak punya malu raimu cok",
-    "Augmentasi": [
-        "Ngatur harga beras wae ora iso, kok isih ngaku penguasa, cok jancok. Ojo sok presiden, munduro saiki, dasar ra nduwe isin, raimu cok.",
-        "Ngatur harga beras wae ora iso kok malah dadi pemimpin cok jancok, mundur wae cok dadi presiden ora nduwe isin raimu cok",
-        "Ngurusi rego beras wae ora iso, kok malah dadi penguasa cok. Minggato cok, dhasar rai gedek, dadi presiden ora isin."
-    ],
-    "Task": "Paraphrasing"
-}
+# Load CSV
+df = pd.read_csv("form_eval.csv")
 
-# Tempat simpan hasil anotasi
+# Tempat simpan anotasi
 if "annotations" not in st.session_state:
     st.session_state.annotations = []
 
-# Sidebar
+# Ambil contoh pertama (nanti bisa diganti loop per contoh)
+contoh = df.iloc[0]
+
+# Sidebar: tampilkan kalimat asli + task
 st.sidebar.title("Kalimat Asli (Human)")
-st.sidebar.markdown(f"<div class='augment-box'>{data['Kalimat Asli']}</div>", unsafe_allow_html=True)
-st.sidebar.markdown(f"**Task: {data['Task']}**")
-st.sidebar.write("Kalimat-kalimat berikut ini dihasilkan menggunakan teknik parafrase.")
+st.sidebar.markdown(f"<div class='augment-box'>{contoh['Kalimat Asli']}</div>", unsafe_allow_html=True)
+st.sidebar.markdown(f"**Task: {contoh['Instruksi']}**")
+st.sidebar.write(f"Kalimat-kalimat berikut ini dihasilkan menggunakan teknik {contoh['Instruksi'].lower()}.")
 
-# Loop setiap kalimat augmentasi
-for i, kalimat in enumerate(data["Augmentasi"], start=1):
+# Filter semua augmentasi yg sama-sama dari kalimat asli itu
+augmentasi_list = df[df["Kalimat Asli"] == contoh["Kalimat Asli"]]
+
+for i, row in augmentasi_list.iterrows():
     with st.container():
-        st.markdown("---")  # Border pemisah antar contoh
+        st.markdown("---")
 
-        # Kotak teks untuk kalimat augmentasi
-        st.markdown(f"<div class='augment-box'>{kalimat}</div>", unsafe_allow_html=True)
+        # Kotak kalimat augmentasi
+        st.markdown(f"<div class='augment-box'>{row['Kalimat Augmentasi']}</div>", unsafe_allow_html=True)
+
+        # Slider dinamis (pakai mapping sesuai instruksi)
+        task_descriptions = {
+            "Paraphrasing": ("Tidak parafrasa sama sekali", "Hasil parafrase sangat bagus"),
+            "Back Translation": ("Bukan hasil terjemahan balik", "Hasil terjemahan balik sangat bagus"),
+            "Synonym Replacement": ("Tidak ada sinonim diganti", "Penggantian sinonim sangat bagus"),
+            "Noise Injection": ("Tidak ada noise sama sekali", "Penyisipan noise sangat bagus"),
+        }
+        low_desc, high_desc = task_descriptions.get(row["Instruksi"], ("Tidak sesuai", "Sangat bagus"))
 
         kesesuaian = st.slider(
-            "Kesesuaian dengan Instruksi (1 = Hasil parafrase sangat buruk, 5 = Hasil parafrase sangat bagus)",
+            f"Kesesuaian dengan Instruksi (1 = {low_desc}, 5 = {high_desc})",
             1, 5, 1,
             key=f"task_{i}"
         )
@@ -85,18 +91,20 @@ for i, kalimat in enumerate(data["Augmentasi"], start=1):
 
         if st.button("Simpan Anotasi", key=f"save_{i}"):
             st.session_state.annotations.append({
-                "Kalimat Asli": data["Kalimat Asli"],
-                "Kalimat Augmentasi": kalimat,
-                "Kesuaian Instruksi": kesesuaian,
-                "Koherensi": koheren,
+                "Kalimat Asli": row["Kalimat Asli"],
+                "Kalimat Augmentasi": row["Kalimat Augmentasi"],
+                "Model": row["Model"],
+                "Instruksi": row["Instruksi"],
+                "Bahasa": row["Bahasa"],
+                "Sesuai Instruksi": kesesuaian,
+                "Koheren": koheren,
                 "Kohesi": kohesi,
-                "Text Naturalness": natural,
-                "Task": data["Task"]
+                "Natural": natural
             })
             st.success("Anotasi berhasil disimpan!")
 
 # Tampilkan hasil anotasi sementara
 if st.session_state.annotations:
     st.markdown("### Hasil Anotasi Sementara")
-    df = pd.DataFrame(st.session_state.annotations)
-    st.dataframe(df)
+    hasil = pd.DataFrame(st.session_state.annotations)
+    st.dataframe(hasil)
