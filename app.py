@@ -54,7 +54,8 @@ contoh = subset.iloc[0]  # ambil 1 baris utk info sidebar
 # ==== SIDEBAR ====
 st.sidebar.title("Kalimat Asli")
 st.sidebar.markdown(f"<div class='augment-box'>{contoh['Kalimat Asli']}</div>", unsafe_allow_html=True)
-st.sidebar.markdown(f"**Task: {contoh['Instruksi']}**")
+st.sidebar.markdown(f"**Label: {contoh['Label']}**")
+st.sidebar.markdown(f"**Instruksi: {contoh['Instruksi']}**")
 if "Instruksi Lengkap" in contoh:
     st.sidebar.write(contoh["Instruksi Lengkap"])
 
