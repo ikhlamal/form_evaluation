@@ -1,3 +1,11 @@
+from pydrive2.auth import GoogleAuth
+from pydrive2.drive import GoogleDrive
+
+gauth = GoogleAuth()
+gauth.LocalWebserverAuth()
+
+drive = GoogleDrive(gauth)
+
 import streamlit as st
 import pandas as pd
 
@@ -52,7 +60,7 @@ subset = grouped.get_group(current_paket)
 contoh = subset.iloc[0]  # ambil 1 baris utk info sidebar
 
 # ==== SIDEBAR ====
-st.sidebar.title("Kalimat Asli")
+st.sidebar.title("Kalimat Asli:")
 st.sidebar.markdown(f"<div class='augment-box'>{contoh['Kalimat Asli']}</div>", unsafe_allow_html=True)
 st.sidebar.markdown(f"**Label: {contoh['Label']}**")
 st.sidebar.markdown(f"**Instruksi: {contoh['Instruksi']}**")
